@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const NodeHog = require('nodehog');
+const ejs = require('ejs');
+const os = require('os');
+
+app.set('view engine', 'ejs');
 
 app.get('/stress/:elemento/tempostress/:tempoStress/tempofolga/:tempoFolga/ciclos/:ciclos', (req, res) => {
     
@@ -12,8 +16,8 @@ app.get('/stress/:elemento/tempostress/:tempoStress/tempofolga/:tempoFolga/ciclo
     res.send("OK");
 });
 
-app.get('/', (req, res) => {
-    res.send("OK");
+app.get('/', (req, res) => {    
+    res.render('index', { hostname: os.hostname() });
 });
 
 var port = process.env.SERVER_PORT || 8080;
